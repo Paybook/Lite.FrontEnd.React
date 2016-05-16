@@ -22,10 +22,10 @@ npm start
 ```
 and go to http://localhost:3000
 
-To make api calls for paybook methos, you will need set the url of the server in the file "front/constants/server.js",
+To make api calls for paybook methods, you will need set the url of the server in the file "front/constants/server.js",
 or you can install the [lite-python](https://github.com/Paybook/lite-python)
 
-To get the final files for production type:
+To get the final files for production just type:
 ```sh
 npm run build
 ```
@@ -69,14 +69,14 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 ```
 
-In material usually al element are put inside of the paper component that is a container, remember that you can use the [Bootstraps](https://getbootstrap.com/examples/grid/) grid system
+In material usually all elements are put inside of the paper component, it is a container, remember that you can use the [Bootstraps](https://getbootstrap.com/examples/grid/) grid system
 
 ```sh
 <h1>About page </h1> 
 <div className="col-md-3"></div> 
-    <Paper className="col-md-6 text-center">
-        content here
-    </Paper> 
+<Paper className="col-md-6 text-center">
+  content here
+</Paper> 
 <div className="col-md-3"></div>
 ```
 
@@ -106,7 +106,7 @@ In LPR the store of all tha pages is located in the file "front/redux/store.js",
 
 
 ### Request API
-You can make API petitions from any page, you will need so set the server url in the file "front/constants/server.js", or you can use the [lite-python](https://github.com/Paybook/lite-python) server. We recommend that you store all your api calls in the file "front/redux/apicall", there are already all the apicalls for paybook methods, for example, lets call the apicall to submit a signup in the about page.
+You can make API petitions from any page, you will need to set the server url in the file "front/constants/server.js", or you can use the [lite-python](https://github.com/Paybook/lite-python). We recommend that you store all your api calls in the file "front/redux/apicall", there are already all the apicalls for paybook methods, for example, lets call the apicall to submit a signup in the about page.
 
 In the about page import the module apicalls
 ```
@@ -165,7 +165,7 @@ finally add the method to call the signup apicall:
   },
   render...
 ```
-Now when you click on the signup button ypu can register a user ang login in the page with it, for all the apicalls the first argument is the data to send, the second is a callback function for success and the third, the callback for the error.
+Now when you click on the signup button you can register a user and login in the page with it, for all the apicalls the first argument is the data to send, the second is a callback function for success and the third, the callback for the error.
 
 ### actions
 There is a module of various actions to control the flow of yout application. 
@@ -179,7 +179,7 @@ import actions from './redux/actions'
 ```
 ## API Request list
 
-You can use the pre-made apicall functions to call any of the [paybook method](https://www.paybook.com/syncdocs#api-Credentials-GetCredentials), just inclue the apicall file:
+You can use the pre-made apicall functions to call any of the [paybook method](https://www.paybook.com/syncdocs#api-Credentials-GetCredentials), just include the apicall file:
 
 ```
 import apicall from './redux/apicall'
