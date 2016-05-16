@@ -23,7 +23,7 @@ npm start
 and go to http://localhost:3000
 
 To make api calls for paybook methods, you will need set the url of the server in the file "front/constants/server.js",
-or you can install the [lite-python](https://github.com/Paybook/lite-python)
+or you can install [lite-python](https://github.com/Paybook/lite-python)
 
 To get the final files for production just type:
 ```sh
@@ -167,7 +167,7 @@ finally add the method to call the signup apicall:
 ```
 Now when you click on the signup button you can register a user and login in the page with it, for all the apicalls the first argument is the data to send, the second is a callback function for success and the third, the callback for the error.
 
-### actions
+### Actions
 There is a module of various actions to control the flow of yout application. 
 ```
 import actions from './redux/actions'

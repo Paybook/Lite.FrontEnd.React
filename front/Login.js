@@ -43,6 +43,7 @@ var Login = React.createClass({
 				username: s.username,
 				token: token
 			})
+
 			actions.pageLoad("Home")
 		},
 		function(error){

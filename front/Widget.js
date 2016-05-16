@@ -10,12 +10,7 @@ import store from './redux/store'
 
 var Widget = React.createClass({
 	componentDidMount: function(){
-		pbWidget.setDev();
-        ///var data_js = {{data|tojson}}
-        //////var data_json = JSON.parse(data_js)
-        var data_json = {}
-        var token = data_json[this.props.user.token]                    
-        pbWidget.setToken(token);
+        pbWidget.setToken(this.props.user.token);
         pbWidget.chooseBank();
 	},
 	render: function() {
