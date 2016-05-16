@@ -1,5 +1,9 @@
 var apicall = {}
-var baseURL =  "http://127.0.0.1:5000" 
+
+import server from '../constants/server'
+
+
+var baseURL =  server.url
 
 
 apicall.getTransactions = function(data, success, error){

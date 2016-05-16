@@ -20,7 +20,10 @@ To run dev enviroment:
 ```sh
 npm start
 ```
-and go to http://localhost:5000
+and go to http://localhost:3000
+
+To make api calls for paybook methos, you will need set the url of the server in the file "front/constants/server.js",
+or you can install the [lite-python](https://github.com/Paybook/lite-python)
 
 To get the final files for production type:
 ```sh
@@ -103,7 +106,7 @@ In LPR the store of all tha pages is located in the file "front/redux/store.js",
 
 
 ### Request API
-You can make API petitions from any page, we recommend that you store all your api calls in the file "front/redux/apicall", there are already all the apicalls for paybook methods, for example, lets call the apicall to submit a signup in the about page.
+You can make API petitions from any page, you will need so set the server url in the file "front/constants/server.js", or you can use the [lite-python](https://github.com/Paybook/lite-python) server. We recommend that you store all your api calls in the file "front/redux/apicall", there are already all the apicalls for paybook methods, for example, lets call the apicall to submit a signup in the about page.
 
 In the about page import the module apicalls
 ```
