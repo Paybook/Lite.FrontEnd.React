@@ -37,20 +37,19 @@ const styles = {
 
 
 
-
-
-
-
-
 var Bar = React.createClass({
   getInitialState: function(){
     return {drawer: true, menu:false, anchorMenu: null}
   },
   componentDidMount: function(){
-      return
+    return
+      console.log("BAR")
       apicall.login({username:"ejemplo", password:"ejemplo"},
       function(response){
-        var token = JSON.parse(response).token
+        var token = response.token
+        console.log("========================================TOKEN")
+        console.log(token)
+
         actions.loaderOff();
         store.dispatch({
           type:"LOGIN_RESET"
@@ -60,7 +59,7 @@ var Bar = React.createClass({
           username: "ejemplo",
           token: token
         })
-        actions.pageLoad("Accounts")
+        actions.pageLoad("Transactions")
       },
       function(error){
         console.log(error)

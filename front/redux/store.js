@@ -6,7 +6,7 @@ import validator from './validator.js'
 // User Reducer
 const userInitialState = {
 	username:false,
-	token:false,
+	token: false,
 };
 
 const userReducer = function(state = userInitialState, action) {
@@ -18,6 +18,18 @@ const userReducer = function(state = userInitialState, action) {
 	}
 	return state;
 }
+
+// Widget Reducer
+const widgetReducer = function(state = true, action) {
+    if (state === undefined ) {
+		return true
+	}
+	if (action.type === 'WIDGET_STATE') {
+	     state = action.state;
+	}
+	return state;
+}
+
 
 // Page Reducer
 const pageReducer = function(state = "Home", action) {
@@ -157,6 +169,7 @@ const loginReducer = function(state = initialLoginState, action) {
 //Reducer to get accounts
 const accountsInitialState = {
 	accounts: [],
+	accountsSelected:[],
 	catalogues:[],
 	cataloguesStatus:[],
 	newSiteName: null,
@@ -165,16 +178,37 @@ const accountsInitialState = {
 	sites:[],
 	twofa: false,
 	twofaToken: false,	
-	transaction: new Array([]),
+	transactions: [],
+	currentAccount: null, 
 }
 const accountsReducer = function(state = accountsInitialState, action) {
 
 	if (state === undefined ) {
 		return Object.assign({}, state, accountsInitialState)
 	}
+	else if(action.type === "ACCOUNT_SET"){
+		return Object.assign({}, state,{currentAccount: action.account});
+	}
+	else if(action.type === "ACCOUNTS_SELECTED"){
+		var newArray = action.accounts.slice(0);
+		newArray.map(function(cat, i){
+			cat.text = cat.name;
+			cat.value = cat.name;
+		})
+		return Object.assign({}, state,{accountsSelected: newArray});
+	}
 	else if(action.type === "TRANSACTIONS_ADD"){
-		var newArray = state.transaction.slice(0);
-		newArray[action.indexSite][action.indexAccount] = (action.accounts)
+		const accounts = state.accountsSelected;
+		var accountsById = {}
+		accounts.map(function(acc){
+			accountsById[acc.id_account] = Object.assign({}, acc,{});
+		})
+
+		var newArray = action.transactions.slice(0);
+		newArray.map(function(tran){
+			tran.accountName = accountsById[tran.id_account].name
+		})
+		return Object.assign({}, state,{transactions: newArray});
 	}
 	else if(action.type === "ACCOUNTS_ADD"){
 		var newArray = state.accounts.slice(0);
@@ -211,9 +245,12 @@ const accountsReducer = function(state = accountsInitialState, action) {
 		return Object.assign({}, state,{"catalogues":newCatalogs})  
 	}
 	else if (action.type === 'CATALOGUES_STATUS') {
-	    return Object.assign({}, state,{"cataloguesStatus":action.cataloguesStatus})
+		var newCatalogs = action.cataloguesStatus.slice(0);
+	    return Object.assign({}, state,{"cataloguesStatus":newCatalogs})
 	}
 	else if(action.type == "TWOFA_SET") {
+		console.log("===TWOFa SET")
+		console.log(action.twofa)
 		return Object.assign({}, state,{"twofa":action.twofa})
 	}
 	else if(action.type == "TWOFA_CLEAR") {
@@ -240,7 +277,8 @@ const reducers = combineReducers({
   loaderState: loaderReducer,
   loginState: loginReducer,
   drawerState: drawerReducer,
-  accountsState: accountsReducer
+  accountsState: accountsReducer,
+  widgetState: widgetReducer,
 });
 
 

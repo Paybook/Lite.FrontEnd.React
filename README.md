@@ -23,7 +23,16 @@ npm start
 and go to http://localhost:3000
 
 To make api calls for paybook methods, you will need set the url of the server in the file "front/constants/server.js",
-or you can install [lite-python](https://github.com/Paybook/lite-python)
+you can use install [lite-python](https://github.com/Paybook/lite-python). We recommend to user the lite server included. To set the server go to the folder "/server" and type:
+
+```sh
+//Install the server
+npm install
+
+//run the server
+node main.js
+```
+
 
 To get the final files for production just type:
 ```sh
@@ -172,10 +181,11 @@ There is a module of various actions to control the flow of yout application.
 ```
 import actions from './redux/actions'
 
-  actions.loaderOff()             //show the loader
-  actions.loaderOn()              //hide the loader
-  actions.error("an error")       //display an error to the user
-  actions.message("my message")   //display a message to the user
+  actions.loaderOff()                 //show the loader
+  actions.loaderOn()                  //hide the loader
+  actions.error("an error")           //display an error to the user
+  actions.message("my message")       //display a message to the user
+  actions.pageLoad("Transactions")    //Load the page component
 ```
 ## API Request list
 

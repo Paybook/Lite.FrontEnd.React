@@ -41,7 +41,7 @@ var Home = React.createClass({
         <Paper style={styles.paper} className="col-md-8">
           <h2>Install instructions</h2>
 
-            <li> Install dependencias "npm install" </li>
+            <li> Install dependencies "npm install" </li>
             <li> Start the development server: "npm start"</li>
             <li> URL of the server: "http://127.0.0.1:3000"</li>
             <br></br>

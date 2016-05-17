@@ -1,0 +1,19 @@
+{
+  "name": "lite-nodejs",
+  "version": "1.0.0",
+  "description": "Paybook api manager",
+  "main": "main.js",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "request": "^2.72.0",
+    "body": "^5.1.0",
+    "parser": "^0.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

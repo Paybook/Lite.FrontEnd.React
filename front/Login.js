@@ -32,8 +32,9 @@ var Login = React.createClass({
 		actions.loaderOn();
 		apicall.login({username:s.username, password:s.password},
 		function(response){
-			var token = JSON.parse(response).token
 			console.log(response)
+			var token = response.token
+			
 			actions.loaderOff();
 			store.dispatch({
 				type:"LOGIN_RESET"

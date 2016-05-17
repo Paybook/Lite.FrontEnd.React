@@ -1,20 +1,26 @@
 var apicall = {}
 
 import server from '../constants/server'
-
+import dummyData from './dummyData.js'
 
 var baseURL =  server.url
 
 
 apicall.getTransactions = function(data, success, error){
-	$.ajax({
-		url : baseURL+'/transactions?token='+data.token+"&id_account="+data.id_account,	 	
+
+	var url = "/transactions?token="+data.token;
+	if(data.id_account){
+		url += "&id_account="+data.id_account
+	}
+
+	$.ajax({ 
+		url : baseURL+url, 	
 //		data : JSON.stringify(data), 
 		type : 'GET',	
 //		contentType: "application/json; charset=utf-8",
 //		dataType : 'application/json', 
 		success : function(response) {
-			success(JSON.parse(response))	       
+			success(response)	       
 		},
 		error : function(errResponse, status) {	      
 			error(errResponse)
@@ -26,15 +32,19 @@ apicall.getTransactions = function(data, success, error){
 
 apicall.getAccounts = function(data, success, error){
 	var newData = JSON.stringify(data)
+	var url = '/accounts?token='+data.token
+	if(data.id_site){
+		url += "&id_site="+data.id_site
+	}
 
 	$.ajax({
-		url : baseURL+'/accounts?token='+data.token+"&id_site="+data.id_site,	 
+		url : baseURL+url,	 
 		data : newData,	 
 		type : 'GET',	 
 		//contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			success(JSON.parse(response))	       
+			success(response)	       
 		},
 		error : function(errResponse, status) {	      
 			error(errResponse)
@@ -52,7 +62,7 @@ apicall.catalogues = function(data, success, error){
 		type : 'GET',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
-			success(JSON.parse(response))	       
+			success(response)	       
 		},
 		error : function(errResponse, status) {	        
 			error(errResponse)
@@ -87,6 +97,7 @@ apicall.twofaResponse = function(data, success, error){
 	dataToSend.twofa = twofa;
 	dataToSend.id_site = data.id_site;
 	dataToSend.token = data.tokenUser;
+	dataToSend.url = data.address;
 
 	$.ajax({
 		url : baseURL+'/twofa',  //data.address+"?token="+data.tokenUser,	 
@@ -94,7 +105,7 @@ apicall.twofaResponse = function(data, success, error){
 		type : 'POST',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
-			success(JSON.parse(response))	       
+			success(response)	       
 		},
 		error : function(errResponse, status) {	        
 			error(errResponse)
@@ -115,7 +126,7 @@ apicall.credentialsRegister = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			success(JSON.parse(response))	       
+			success(response)	       
 		},
 		error : function(errResponse, status) {	        
 			error(errResponse)
@@ -135,7 +146,7 @@ apicall.credentialsDelete = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			success(JSON.parse(response))	       
+			success(response)	       
 		},
 		error : function(errResponse, status) {	      
 			error(errResponse)
@@ -148,6 +159,9 @@ apicall.credentialsDelete = function(data, success, error){
 apicall.credentialsRequest = function(data, success, error){
 	var newData = JSON.stringify(data)
 
+	//success(dummyData.credentials)
+	//return
+
 	$.ajax({
 		url : baseURL+'/credentials?token='+data.token,	 
 		//data : {token: newData.token},	 
@@ -155,7 +169,7 @@ apicall.credentialsRequest = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			success(JSON.parse(response))	       
+			success(response)	       
 		},
 		error : function(errResponse, status) {	       
 			error(errResponse)
