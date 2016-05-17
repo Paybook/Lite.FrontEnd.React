@@ -1,13 +1,12 @@
 /*
 
 Pending:
-- Add the avatar to the credentialsGet
 - Make proper validation in signup function
 
-
 */
+
 var apikey = "YOUR_API_KEY_HERE";
-var is_test = true
+var is_test = false
 
 var request = require('request');
 var express    = require('express');  
@@ -52,7 +51,6 @@ var accountsRequest = function(data, successCallback, errorCallback){
 	var url = 'https://sync.paybook.com/v1/accounts?token='+data.token
 	//+'&api_key='+apikey
 	if(data.id_site){	url += '&id_site='+data.id_site}
-	console.log(url)
 	request({
 		url: url,
 		method: 'GET',
@@ -62,7 +60,6 @@ var accountsRequest = function(data, successCallback, errorCallback){
 			errorCallback(error)
 		}
 		var resp = JSON.parse(body).response
-		console.log(resp)
 		successCallback(resp)
 	})
 }
@@ -83,17 +80,45 @@ var cataloguesSites = function(data, successCallback, errorCallback){
 
 
 var credentialsRequest = function(data, successCallback, errorCallback){
+
+	//GET the avatars for the sites
 	request({
-		url: 'https://sync.paybook.com/v1/credentials?token='+data.token+'&api_key='+apikey,
+		url: 'https://sync.paybook.com/v1/catalogues/site_organizations?token='+data.token+'&is_test='+is_test,
 		method: 'GET',
 	},
 	function(error, response, body){
 		if(error){
 			errorCallback(error)
 		}
-		var resp = JSON.parse(body).response
-		successCallback(resp)
+
+		var sites = JSON.parse(body).response
+		var sitesById = {};
+
+		sites.map(function(site){
+			sitesById[site.id_site_organization] = site;
+		})
+
+		//Get the credentials and attach the avatars
+		request({
+			url: 'https://sync.paybook.com/v1/credentials?token='+data.token+'&api_key='+apikey,
+			method: 'GET',
+		},
+		function(error1, response1, body1){
+			if(error1){
+				errorCallback(error1)
+			}
+			var resp = JSON.parse(body1).response
+			resp.map(function(res){
+				if(sitesById[res.id_site_organization]){
+					res.avatar = sitesById[res.id_site_organization].avatar;
+				}
+			})
+			successCallback(resp)
+		})
+
 	})
+
+
 }
 
 var credentialsRegister = function(data, successCallback, errorCallback){
@@ -117,7 +142,6 @@ var credentialsRegister = function(data, successCallback, errorCallback){
 		if(error){
 			errorCallback(error)
 		}
-		console.log(body)
 		var resp = JSON.parse(body).response
 		successCallback(resp)
 	})
@@ -160,7 +184,6 @@ var twofaSend = function(data, successCallback, errorCallback){
 		if(error){
 			errorCallback(error)
 		}
-		console.log(body)
 		var resp = JSON.parse(body).response
 		successCallback(resp)
 	})
@@ -203,7 +226,6 @@ var userGet = function(data, successCallback, errorCallback){
 		if(error){
 			errorCallback(error)
 		}
-		console.log(body)
 		successCallback(JSON.parse(body).response)
 	})	
 }
@@ -240,18 +262,6 @@ var transactionsRequest = function(data, successCallback, errorCallback){
 }
 
 
-// userCreate("ej1","ej1")
- /*
-var users = usersGet(null,
-function(response){
-	response.map(function(user){
-		console.log(user)
-	})
-},
-function(error){
-	console.log(error)
-});
-*/
 
 
 /*
