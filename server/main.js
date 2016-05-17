@@ -6,7 +6,7 @@ Pending:
 
 
 */
-var apikey = "b7e57daf2b782bee22f05e38a1823c3a";
+var apikey = "YOUR_API_KEY_HERE";
 var is_test = true
 
 var request = require('request');

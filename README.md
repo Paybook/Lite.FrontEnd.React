@@ -32,6 +32,7 @@ npm install
 //run the server
 node main.js
 ```
+NOTE: You need to add your paybook api_key in the main.js file
 
 
 To get the final files for production just type:

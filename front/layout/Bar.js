@@ -42,7 +42,7 @@ var Bar = React.createClass({
     return {drawer: true, menu:false, anchorMenu: null}
   },
   componentDidMount: function(){
-    return
+      return
       console.log("BAR")
       apicall.login({username:"ejemplo", password:"ejemplo"},
       function(response){
@@ -59,7 +59,7 @@ var Bar = React.createClass({
           username: "ejemplo",
           token: token
         })
-        actions.pageLoad("Transactions")
+        actions.pageLoad("Accounts")
       },
       function(error){
         console.log(error)
