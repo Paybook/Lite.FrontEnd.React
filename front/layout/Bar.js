@@ -43,7 +43,7 @@ var Bar = React.createClass({
   },
   componentDidMount: function(){
       return
-      console.log("BAR")
+      console.log("BAR LOAD")
 
       store.dispatch({
         type: 'WIDGET_STATE',

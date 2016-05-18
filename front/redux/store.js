@@ -20,9 +20,9 @@ const userReducer = function(state = userInitialState, action) {
 }
 
 // Widget Reducer
-const widgetReducer = function(state = true, action) {
+const widgetReducer = function(state = false, action) {
     if (state === undefined ) {
-		return true
+		return false
 	}
 	if (action.type === 'WIDGET_STATE') {
 	     state = action.state;
