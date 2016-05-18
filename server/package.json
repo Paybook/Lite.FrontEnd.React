@@ -1,6 +1,6 @@
 {
-  "name": "lite-nodejs",
-  "version": "1.0.0",
+  "name": "paybook",
+  "version": "1.0.1",
   "description": "Paybook api manager",
   "main": "main.js",
   "dependencies": {

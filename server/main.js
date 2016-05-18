@@ -5,7 +5,7 @@ Pending:
 
 */
 
-var apikey = "YOUR_API_KEY_HERE";
+var apikey = "PAYBOOK_API_KEY";
 var is_test = false
 
 var request = require('request');
@@ -29,6 +29,7 @@ var handleError = function(){
 
 
 var buildError = function(error){
+	console.log(error)
 	if(!error.code){	error.code = 500}
 	if(!error.message){	error.message = "Server error"}
 	return error
@@ -547,9 +548,15 @@ app.post('/twofa', function (req, res) {
 });
 
 
+if(apikey.length < 20 ){
+	console.log("Insert your Paybook Api Key on the top of the file")
+}
+else{
 
-
-app.listen(5000, function () {
-  console.log('lIstening on port 5000!');
+	app.listen(5000, function () {
+  	console.log('listening on port 5000!');
 });
+}
+
+
 

@@ -77,7 +77,6 @@ apicall.checkStatus = function(data, success, error){
 		url : data,	 	 
 		type : 'GET',	 
 		success : function(response) {
-			console.log(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	        

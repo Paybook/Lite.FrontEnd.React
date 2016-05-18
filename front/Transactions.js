@@ -20,12 +20,13 @@ import TableRowColumn from 'material-ui/Table/TableRowColumn';
 import TableBody from 'material-ui/Table/TableBody';
 
 
+
+
 var Transactions = React.createClass({
 	componentDidMount:function(){
 		actions.getTransactions();
 		actions.getAccounts();
-		console.log("accountassdsda")
-		console.log(this.props.accountsSelected)
+
 
 	},
 	transactionsList: function(){

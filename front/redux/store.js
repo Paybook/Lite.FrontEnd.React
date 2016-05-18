@@ -249,8 +249,6 @@ const accountsReducer = function(state = accountsInitialState, action) {
 	    return Object.assign({}, state,{"cataloguesStatus":newCatalogs})
 	}
 	else if(action.type == "TWOFA_SET") {
-		console.log("===TWOFa SET")
-		console.log(action.twofa)
 		return Object.assign({}, state,{"twofa":action.twofa})
 	}
 	else if(action.type == "TWOFA_CLEAR") {

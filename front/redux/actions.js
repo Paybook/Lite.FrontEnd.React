@@ -47,13 +47,10 @@ actions.getTransactions = function(id_account){
 		}
 
 		actions.loaderOn();
-		console.log("GET TRANSACTIONS")
-		console.log(data)
+
 
 		apicall.getTransactions(data,
 			function(response){
-				console.log("TRans RESPONSE")
-				console.log(response)
 				store.dispatch({
 					type:'TRANSACTIONS_ADD',
 					transactions: response,
@@ -73,11 +70,10 @@ actions.getCredentials = function(){
 		token: s.userState.token,
 	}
 	actions.loaderOn();
-	console.log(data)
+
 
 	apicall.credentialsRequest(data,
 		function(response){
-			console.log(response)
 			store.dispatch({
 				type:"SITES_GET",
 				sites:response
@@ -98,12 +94,10 @@ actions.getAccounts = function(id_site){
 		id_site: id_site?id_site:null,
 	}
 	actions.loaderOn();
-	console.log("GET ACCOUNTS")
 
 
 	apicall.getAccounts(data,
 		function(response){
-			console.log(response)
 			actions.loaderOff()
 			store.dispatch({
 				type:'ACCOUNTS_SELECTED',

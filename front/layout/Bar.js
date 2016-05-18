@@ -44,6 +44,12 @@ var Bar = React.createClass({
   componentDidMount: function(){
       return
       console.log("BAR")
+
+      store.dispatch({
+        type: 'WIDGET_STATE',
+        state: false
+      })
+
       apicall.login({username:"ejemplo", password:"ejemplo"},
       function(response){
         var token = response.token
