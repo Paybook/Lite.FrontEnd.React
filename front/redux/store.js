@@ -30,6 +30,17 @@ const widgetReducer = function(state = false, action) {
 	return state;
 }
 
+// Widget Reducer
+const testReducer = function(state = false, action) {
+    if (state === undefined ) {
+		return false
+	}
+	if (action.type === 'STATE_SET') {
+	     state = action.state;
+	}
+	return state;
+}
+
 
 // Page Reducer
 const pageReducer = function(state = "Home", action) {
@@ -277,6 +288,7 @@ const reducers = combineReducers({
   drawerState: drawerReducer,
   accountsState: accountsReducer,
   widgetState: widgetReducer,
+  testState: widgetReducer,
 });
 
 

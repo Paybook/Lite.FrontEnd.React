@@ -5,6 +5,10 @@ import dummyData from './dummyData.js'
 
 var baseURL =  server.url
 
+var parseResponse = function(res){
+	if(typeof res != "object"){ res = JSON.parse(res)}
+	return res
+}
 
 apicall.getTransactions = function(data, success, error){
 
@@ -20,6 +24,7 @@ apicall.getTransactions = function(data, success, error){
 //		contentType: "application/json; charset=utf-8",
 //		dataType : 'application/json', 
 		success : function(response) {
+			response = parseResponse(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	      
@@ -44,6 +49,7 @@ apicall.getAccounts = function(data, success, error){
 		//contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
+			response = parseResponse(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	      
@@ -62,6 +68,7 @@ apicall.catalogues = function(data, success, error){
 		type : 'GET',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
+			response = parseResponse(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	        
@@ -77,6 +84,7 @@ apicall.checkStatus = function(data, success, error){
 		url : data,	 	 
 		type : 'GET',	 
 		success : function(response) {
+			response = parseResponse(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	        
@@ -104,6 +112,7 @@ apicall.twofaResponse = function(data, success, error){
 		type : 'POST',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
+			response = parseResponse(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	        
@@ -125,6 +134,7 @@ apicall.credentialsRegister = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
+			response = parseResponse(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	        
@@ -145,6 +155,7 @@ apicall.credentialsDelete = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
+			response = parseResponse(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	      
@@ -168,6 +179,7 @@ apicall.credentialsRequest = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
+			response = parseResponse(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	       
@@ -189,6 +201,7 @@ apicall.userDelete = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		dataType : 'application/json',
 		success : function(response) {
+			response = parseResponse(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	        
@@ -208,6 +221,7 @@ apicall.login = function(data, success, error){
 		type : 'POST',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
+			response = parseResponse(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	        
@@ -226,6 +240,7 @@ apicall.signup = function(data, success, error){
 		type : 'POST',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
+			response = parseResponse(response)
 			success(response)	       
 		},
 		error : function(errResponse, status) {	        
