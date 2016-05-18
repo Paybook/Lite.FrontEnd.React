@@ -20,6 +20,12 @@ var Settings = React.createClass({
 			state: state
 		})
 	},
+	handleEnviroment: function(event,state){
+		store.dispatch({
+			type: 'ENVIROMENT_SET',
+			state: state
+		})
+	},
 	render: function() {
 		var t = this;
 		return (
@@ -42,6 +48,21 @@ var Settings = React.createClass({
 					    />
 
 					}
+
+					{
+						t.props.enviroment?
+						<Toggle
+					      label="Test enviroment"
+					      onToggle={t.handleEnviroment}
+					      defaultToggled ={true}
+					    />:
+					    <Toggle
+					      label="Test enviroment"
+					      onToggle={t.handleEnviroment}
+					      defaultToggled ={false}
+					    />
+
+					}
 					
 				</Paper>
 				<div className="col-md-3"></div>
@@ -56,6 +77,7 @@ const mapStateToProps = function(store) {
   return {
 	username: store.userState,
 	widget: store.widgetState,
+	enviroment: store.enviromentState,
   };
 }
 

@@ -2,12 +2,23 @@ var apicall = {}
 
 import server from '../constants/server'
 import dummyData from './dummyData.js'
+import store from './store.js'
+import actions from './actions.js'
 
 var baseURL =  server.url
 
-var parseResponse = function(res){
+var handleResponse = function(res){
 	if(typeof res != "object"){ res = JSON.parse(res)}
-	return res
+
+	if(res.code == 401 && res.response == null && res.status== false){
+		actions.error("Invalid session")
+		actions.logout()
+	}
+	else{
+		return res
+	}
+	
+	
 }
 
 apicall.getTransactions = function(data, success, error){
@@ -25,8 +36,7 @@ apicall.getTransactions = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 //		dataType : 'application/json', 
 		success : function(response) {
-			response = parseResponse(response)
-			success(response.transactions)	       
+			success(handleResponse(response.transactions))	       
 		},
 		error : function(errResponse, status) {	      
 			error(errResponse)
@@ -50,8 +60,7 @@ apicall.getAccounts = function(data, success, error){
 		//contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			response = parseResponse(response)
-			success(response)	       
+			success(handleResponse(response))      
 		},
 		error : function(errResponse, status) {	      
 			error(errResponse)
@@ -62,15 +71,18 @@ apicall.getAccounts = function(data, success, error){
 }
 
 apicall.catalogues = function(data, success, error){
-
+ 	var test = store.getState().enviromentState
+ 	var url = baseURL+'/catalogues?token='+data.token
+ 	if(test === true){
+ 		url += '&is_test=true'
+ 	}
 	$.ajax({
-		url : baseURL+'/catalogues',	 
-		data : {token: data.token},	 
+		url : url,	 
+		//data : {token: data.token, is_test: test},	 
 		type : 'GET',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
-			response = parseResponse(response)
-			success(response)	       
+			success(handleResponse(response))      
 		},
 		error : function(errResponse, status) {	        
 			error(errResponse)
@@ -85,8 +97,7 @@ apicall.checkStatus = function(data, success, error){
 		url : data,	 	 
 		type : 'GET',	 
 		success : function(response) {
-			response = parseResponse(response)
-			success(response)	       
+			success(handleResponse(response))      
 		},
 		error : function(errResponse, status) {	        
 			error(errResponse)
@@ -113,8 +124,7 @@ apicall.twofaResponse = function(data, success, error){
 		type : 'POST',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
-			response = parseResponse(response)
-			success(response)	       
+			success(handleResponse(response))      
 		},
 		error : function(errResponse, status) {	        
 			error(errResponse)
@@ -135,8 +145,7 @@ apicall.credentialsRegister = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			response = parseResponse(response)
-			success(response)	       
+			success(handleResponse(response))      
 		},
 		error : function(errResponse, status) {	        
 			error(errResponse)
@@ -156,8 +165,7 @@ apicall.credentialsDelete = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			response = parseResponse(response)
-			success(response)	       
+			success(handleResponse(response))      
 		},
 		error : function(errResponse, status) {	      
 			error(errResponse)
@@ -180,8 +188,7 @@ apicall.credentialsRequest = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			response = parseResponse(response)
-			success(response)	       
+			success(handleResponse(response))      
 		},
 		error : function(errResponse, status) {	       
 			error(errResponse)
@@ -202,8 +209,7 @@ apicall.userDelete = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		dataType : 'application/json',
 		success : function(response) {
-			response = parseResponse(response)
-			success(response)	       
+			success(handleResponse(response))      
 		},
 		error : function(errResponse, status) {	        
 			error(errResponse)
@@ -222,8 +228,7 @@ apicall.login = function(data, success, error){
 		type : 'POST',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
-			response = parseResponse(response)
-			success(response)	       
+			success(handleResponse(response))      
 		},
 		error : function(errResponse, status) {	        
 			error(errResponse)
@@ -241,8 +246,7 @@ apicall.signup = function(data, success, error){
 		type : 'POST',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
-			response = parseResponse(response)
-			success(response)	       
+			success(handleResponse(response))      
 		},
 		error : function(errResponse, status) {	        
 			error(errResponse)

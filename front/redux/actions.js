@@ -134,7 +134,9 @@ actions.setAccount = function(id_account){
 	
 }
 
-
+actions.sessionRefresh = function(){
+	
+}
 
 actions.logout = function(){
 	store.dispatch({

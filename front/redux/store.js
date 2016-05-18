@@ -39,12 +39,12 @@ const widgetReducer = function(state = false, action) {
 	return state;
 }
 
-// Widget Reducer
-const testReducer = function(state = false, action) {
+// Enviroment Reducer
+const enviromentReducer = function(state = false, action) {
     if (state === undefined ) {
 		return false
 	}
-	if (action.type === 'STATE_SET') {
+	if (action.type === 'ENVIROMENT_SET') {
 	     state = action.state;
 	}
 	return state;
@@ -298,6 +298,7 @@ const reducers = combineReducers({
   accountsState: accountsReducer,
   widgetState: widgetReducer,
   testState: widgetReducer,
+  enviromentState: enviromentReducer,
   stateState: stateReducer,
 });
 

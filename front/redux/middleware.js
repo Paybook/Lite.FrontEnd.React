@@ -12,7 +12,7 @@ var middleware = function({ getState }){
     var state = getState()
     //console.log(cookie.load("state"))
     cookie.save("state",state)
-    console.log(cookie.load("state"))
+    //console.log(cookie.load("state"))
 
 
     return returnValue
