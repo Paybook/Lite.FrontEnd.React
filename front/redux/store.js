@@ -1,13 +1,22 @@
-import { createStore, combineReducers  } from 'redux'
+import { createStore, combineReducers, applyMiddleware   } from 'redux'
 import validator from './validator.js'
-
-
+import middleware from './middleware.js'
+import cookie from './cookie'
 
 // User Reducer
 const userInitialState = {
 	username:false,
 	token: false,
 };
+const stateReducer = function(state = {}, action) {
+    if (state === undefined) {
+		return {}
+	}
+	if (action.type === 'STATE_SET') {
+	    return Object.assign({}, state, action.state)
+	}
+	return state;
+}
 
 const userReducer = function(state = userInitialState, action) {
     if (state === undefined || action.type === 'USER_LOGOUT' ) {
@@ -289,11 +298,20 @@ const reducers = combineReducers({
   accountsState: accountsReducer,
   widgetState: widgetReducer,
   testState: widgetReducer,
+  stateState: stateReducer,
 });
 
 
-// Create a store by passing in the reducer
-const store = createStore(reducers);
+
+var state = {};
+var cs = cookie.load("state")
+if(cs){	state = cs}
+
+
+const store = createStore(reducers, state,  applyMiddleware( middleware ) );
+
+
+
 
 
 

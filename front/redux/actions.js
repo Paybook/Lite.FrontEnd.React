@@ -1,6 +1,14 @@
 var actions = {}
 import store from './store'
 import apicall from './apicall'
+import cookie from './cookie'
+
+
+
+actions.test = function(){
+	console.log("TEST")
+	console.log(store.getState())
+}
 
 actions.error = function(message){
 	store.dispatch({
@@ -128,6 +136,12 @@ actions.setAccount = function(id_account){
 
 
 
-
+actions.logout = function(){
+	store.dispatch({
+      type:"USER_LOGOUT"
+    })
+    actions.pageLoad("Login")
+	cookie.remove("state")
+}
 
 export default actions;

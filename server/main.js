@@ -1,9 +1,3 @@
-/*
-
-Pending:
-- Make proper validation in signup function
-
-*/
 
 var apikey = "PAYBOOK_API_KEY";
 var is_test = false
@@ -17,15 +11,6 @@ var app = express();
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
-
-
-var checkCode = function(code){
-
-}
-
-var handleError = function(){
-
-}
 
 
 var buildError = function(error){
@@ -95,6 +80,7 @@ var credentialsRequest = function(data, successCallback, errorCallback){
 		var sites = JSON.parse(body).response
 		var sitesById = {};
 
+		if(sites == null){	sites = [] }
 		sites.map(function(site){
 			sitesById[site.id_site_organization] = site;
 		})
@@ -258,6 +244,7 @@ var transactionsRequest = function(data, successCallback, errorCallback){
 			errorCallback(error)
 		}
 		var resp = JSON.parse(body).response
+		resp = {transactions: resp}
 		successCallback(resp)
 	})
 }

@@ -26,7 +26,7 @@ import ToolbarSeparator from 'material-ui/Toolbar/ToolbarSeparator';
 
 import Routes from "../constants/Routes.js"
 import apicall from '../redux/apicall'
-
+import cookie from '../redux/cookie'
 
 const styles = {
   title: {
@@ -42,6 +42,16 @@ var Bar = React.createClass({
     return {drawer: true, menu:false, anchorMenu: null}
   },
   componentDidMount: function(){
+    return
+      var state = cookie.load("state");
+
+      if(state){
+        store.dispatch({
+          type: 'STATE_SET',
+          state: state
+        })
+      }
+
       return
       console.log("BAR LOAD")
 
@@ -108,10 +118,8 @@ var Bar = React.createClass({
     });
   },
   userLogout: function(){
-    store.dispatch({
-      type:"USER_LOGOUT"
-    })
-    actions.pageLoad("Login")
+
+    actions.logout()
   },
   userButtons: function(){
     return(
