@@ -17,15 +17,16 @@ apicall.getTransactions = function(data, success, error){
 		url += "&id_account="+data.id_account
 	}
 
+
 	$.ajax({ 
 		url : baseURL+url, 	
 //		data : JSON.stringify(data), 
 		type : 'GET',	
-//		contentType: "application/json; charset=utf-8",
+		contentType: "application/json; charset=utf-8",
 //		dataType : 'application/json', 
 		success : function(response) {
 			response = parseResponse(response)
-			success(response)	       
+			success(response.transactions)	       
 		},
 		error : function(errResponse, status) {	      
 			error(errResponse)
