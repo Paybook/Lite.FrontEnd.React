@@ -199,6 +199,7 @@ const accountsInitialState = {
 	twofa: false,
 	twofaToken: false,	
 	transactions: [],
+	transactionsFiltered: [],
 	currentAccount: null, 
 }
 const accountsReducer = function(state = accountsInitialState, action) {
@@ -217,6 +218,10 @@ const accountsReducer = function(state = accountsInitialState, action) {
 		})
 		return Object.assign({}, state,{accountsSelected: newArray});
 	}
+	else if(action.type === "TRANSACTIONS_FILTER"){
+		var newArray = action.transactions.slice(0);
+		return Object.assign({}, state,{transactionsFiltered: newArray});
+	}
 	else if(action.type === "TRANSACTIONS_ADD"){
 		const accounts = state.accountsSelected;
 		var accountsById = {}
@@ -228,7 +233,7 @@ const accountsReducer = function(state = accountsInitialState, action) {
 		newArray.map(function(tran){
 			tran.accountName = accountsById[tran.id_account].name
 		})
-		return Object.assign({}, state,{transactions: newArray});
+		return Object.assign({}, state,{transactions: newArray, transactionsFiltered: newArray});
 	}
 	else if(action.type === "ACCOUNTS_ADD"){
 		var newArray = state.accounts.slice(0);

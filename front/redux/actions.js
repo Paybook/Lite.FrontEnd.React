@@ -11,6 +11,14 @@ actions.test = function(){
 }
 
 actions.error = function(message){
+	if(message.status == 401 && message.statusText ==  "UNAUTHORIZED"){
+		actions.error("Invalid session")
+		actions.logout()
+		return
+	}
+	if(typeof message != "string"){
+		message = "error"
+	}
 	store.dispatch({
 		type:"ERROR_DISPLAY",
 		message:message,
@@ -61,15 +69,35 @@ actions.getTransactions = function(id_account){
 			function(response){
 				store.dispatch({
 					type:'TRANSACTIONS_ADD',
-					transactions: response,
+					transactions: response.transactions,
 				})
 				actions.loaderOff()
 			}, 
-			function(error){
+			function(err){
 				actions.loaderOff()
-				actions.error(error)
+				actions.error(err)
 		})
 
+}
+
+actions.filterTransactions = function(text, field){
+
+	var s = store.getState().accountsState;
+
+	var transactions = s.transactions;
+	var newTransactions = [];
+	var re = new RegExp(text,"gi");
+
+	transactions.forEach(function(tran){
+		if(re.test(tran.description) || re.test(tran.amount) ){
+			newTransactions.push(tran)
+		}
+	})
+
+	store.dispatch({
+		type:'TRANSACTIONS_FILTER',
+		transactions: newTransactions,
+	})
 }
 
 actions.getCredentials = function(){
@@ -88,9 +116,9 @@ actions.getCredentials = function(){
 			})
 			actions.loaderOff()
 		}, 
-		function(error){
+		function(err){
 			actions.loaderOff()
-			error(error)
+			actions.error(err)
 
 	})
 }
@@ -116,7 +144,7 @@ actions.getAccounts = function(id_site){
 		}, 
 		function(error){
 			actions.loaderOff()
-			error(error)
+			actions.error(error)
 
 	})
 }

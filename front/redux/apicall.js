@@ -8,7 +8,8 @@ import actions from './actions.js'
 var baseURL =  server.url
 
 var handleResponse = function(res){
-	if(typeof res != "object"){ res = JSON.parse(res)}
+
+	if(typeof res != "object" && typeof res != "array"){ res = JSON.parse(res)}
 
 	if(res.code == 401 && res.response == null && res.status== false){
 		actions.error("Invalid session")
@@ -21,6 +22,10 @@ var handleResponse = function(res){
 	
 }
 
+var handleError = function(error){
+	console.log(error)
+}
+
 apicall.getTransactions = function(data, success, error){
 
 	var url = "/transactions?token="+data.token;
@@ -28,15 +33,16 @@ apicall.getTransactions = function(data, success, error){
 		url += "&id_account="+data.id_account
 	}
 
-
 	$.ajax({ 
 		url : baseURL+url, 	
-//		data : JSON.stringify(data), 
+		data : JSON.stringify(data), 
 		type : 'GET',	
 		contentType: "application/json; charset=utf-8",
 //		dataType : 'application/json', 
 		success : function(response) {
-			success(handleResponse(response.transactions))	       
+
+
+			success(handleResponse(response))	       
 		},
 		error : function(errResponse, status) {	      
 			error(errResponse)

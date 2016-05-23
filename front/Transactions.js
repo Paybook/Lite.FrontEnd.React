@@ -32,12 +32,13 @@ var Transactions = React.createClass({
 	transactionsList: function(){
 		var t = this;
 		var list = []
-		t.props.transactions.map(function(tran,i){
+
+		t.props.transactionsFiltered.map(function(tran,i){
 			list.push(
 				<TableRow key={i}>
 					<TableRowColumn>{tran.description}</TableRowColumn>
 					<TableRowColumn>{tran.accountName}</TableRowColumn>
-					<TableRowColumn>{tran.amount}</TableRowColumn>
+					<TableRowColumn className="text-right">{"$ "+(tran.amount.toFixed(2))}</TableRowColumn>
 				</TableRow>
 			  )
 		})		
@@ -62,13 +63,28 @@ var Transactions = React.createClass({
 		image.src = imgData
 		document.body.appendChild(image);
 	},
+	handleSearch: function(event, val){
+		actions.filterTransactions(val)
+
+	},
 	render: function() {
 		var t = this;
 		return (
-			<div>
+			<div className="col-md-12">
 			<h2> Transactions	</h2>
 				
-				<Paper style={{"padding":"26px"}}>
+				<Paper style={{"padding":"26px"}} className="col-md-12">
+
+					<div className="col-md-8">
+						<TextField
+					      hintText="Search transaction"
+					      floatingLabelText="Search transaction"
+					      style={styles.textField}
+					      onChange={t.handleSearch}
+					    />
+					</div>
+
+				    <div className="col-md-4">
 					{
 						t.props.currentAccount == null?
 						<AutoComplete
@@ -81,12 +97,13 @@ var Transactions = React.createClass({
 				          fullWidth={true}
 				   		/>: <FlatButton label="Show all accounts" onClick={t.clearAccount}/>
 			   		}
+			   		</div>
 
 				</Paper>
 
 				{
 				t.props.transactions.length > 0?	
-				<Paper>
+				<Paper className="col-md-12">
 
 
 
@@ -117,6 +134,7 @@ const mapStateToProps = function(store) {
   return {
 	user: store.userState,
 	transactions: store.accountsState.transactions,
+	transactionsFiltered: store.accountsState.transactionsFiltered,
 	currentAccount: store.accountsState.currentAccount,
 	newSiteCredentials: store.accountsState.newSiteCredentials,
 	accountsSelected: store.accountsState.accountsSelected,
