@@ -22,17 +22,12 @@ npm start
 ```
 and go to http://localhost:3000
 
-To make api calls for paybook methods, you will need set the url of the server in the file "front/constants/server.js",
-you can use install [lite-python](https://github.com/Paybook/lite-python). We recommend to user the lite server included. To set the server go to the folder "/server" and type:
+To make api calls for paybook methods, you will need set the url of the server in the file "front/constants/server.js", or either you can use install [lite-python](https://github.com/Paybook/lite-python), or use the 
+[lite nodejs server](https://www.npmjs.com/package/paybook) included in this package. To run the included server put your paybook api key in the top of "server.js" file and  type:
 
 ```sh
-//Install the server
-npm install
-
-//run the server
-node main.js
+npm run server
 ```
-NOTE: You need to add your paybook api_key in the main.js file
 
 
 To get the final files for production just type:
