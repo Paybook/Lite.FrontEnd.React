@@ -231,7 +231,9 @@ const accountsReducer = function(state = accountsInitialState, action) {
 
 		var newArray = action.transactions.slice(0);
 		newArray.map(function(tran){
-			tran.accountName = accountsById[tran.id_account].name
+			if(accountsById[tran.id_account]){
+				tran.accountName = accountsById[tran.id_account].name
+			}
 		})
 		return Object.assign({}, state,{transactions: newArray, transactionsFiltered: newArray});
 	}

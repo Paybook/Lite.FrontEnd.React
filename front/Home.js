@@ -24,7 +24,7 @@ var Home = React.createClass({
         <div className="col-md-12">
         <div className="col-md-2"></div>
         <Paper style={styles.paper} className="col-md-8 text-center">
-          <img src="/paybooklogo.svg"></img>
+          <img src="paybooklogo.svg"></img>
 
         </Paper>
         <div className="col-md-2"></div>
