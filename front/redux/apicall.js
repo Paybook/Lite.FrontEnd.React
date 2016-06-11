@@ -58,8 +58,6 @@ apicall.getAccounts = function(data, success, error){
 	if(data.id_site != null && data.id_site != undefined){
 		url += "&id_site="+data.id_site
 	}
-	console.log("GET ACCCCCCCCCC")
-	console.log(url)
 
 	$.ajax({
 		url : baseURL+url,	 
