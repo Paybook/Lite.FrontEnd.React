@@ -1,11 +1,11 @@
 
 
 import React from 'react';
-import { connect  } from 'react-redux'
-import store from './redux/store'
-import apicall from './redux/apicall'
-import actions from './redux/actions'
-import styles from './constants/styles.js'
+import { connect  } from 'react-redux';
+import store from './redux/store';
+import apicall from './redux/apicall';
+import actions from './redux/actions';
+import styles from './constants/styles.js';
 
 
 import Avatar from 'material-ui/Avatar';
@@ -13,8 +13,8 @@ import AppBar from 'material-ui/AppBar';
 import AutoComplete from 'material-ui/AutoComplete';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import FontIcon from 'material-ui/FontIcon'
-import IconButton from 'material-ui/IconButton'
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
 import Toggle from 'material-ui/Toggle';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
@@ -27,9 +27,9 @@ import CardActions from 'material-ui/Card/CardActions';
 import Paper from 'material-ui/Paper';
 import Drawer from 'material-ui/Drawer';
 import List from 'material-ui/List';
-import ListItem from 'material-ui/List/ListItem'
+import ListItem from 'material-ui/List/ListItem';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import CircularProgress from 'material-ui/CircularProgress'
+import CircularProgress from 'material-ui/CircularProgress';
 
 var DynamicFields =  React.createClass({
 	getInitialState:function(){
@@ -363,6 +363,7 @@ var AccountsContainer = React.createClass({
 			address: this.props.twofa.original.twofa,
 			tokenUser: this.props.user.token,
 			id_site: this.props.twofa.original.id_site,
+			id_credential: this.props.twofa.original.id_credential,
 			twofa: this.props.twofa.twofa,
 
 		};

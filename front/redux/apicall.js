@@ -1,36 +1,38 @@
-var apicall = {}
+var apicall = {};
 
-import server from '../constants/server'
-import dummyData from './dummyData.js'
-import store from './store.js'
-import actions from './actions.js'
+import server from '../constants/server';
+import dummyData from './dummyData.js';
+import store from './store.js';
+import actions from './actions.js';
 
-var baseURL =  server.url
+var baseURL =  server.url;
 
 var handleResponse = function(res){
 
-	if(typeof res != "object" && typeof res != "array"){ res = JSON.parse(res)}
+	if(typeof res != "object" && !Array.isArray(res)){ 
+		res = JSON.parse(res);
+	}
 
-	if(res.code == 401 && res.response == null && res.status== false){
-		actions.error("Invalid session")
-		actions.logout()
+	if(res.code == 401 && res.response === null && res.status === false){
+		actions.error("Invalid session");
+		actions.logout();
 	}
 	else{
-		return res
+		return res;
 	}
 	
 	
-}
+};
 
 var handleError = function(error){
-	console.log(error)
-}
+	console.log(error);
+};
 
 apicall.getTransactions = function(data, success, error){
 
 	var url = "/transactions?token="+data.token;
 	if(data.id_account){
-		url += "&id_account="+data.id_account
+		url += "&id_account="+data.id_account;
 	}
 
 	$.ajax({ 
@@ -42,21 +44,21 @@ apicall.getTransactions = function(data, success, error){
 		success : function(response) {
 
 
-			success(handleResponse(response))	       
+			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	      
-			error(errResponse)
+			error(errResponse);
 		},
 		complete : function(xhr, status) {}
 	});
 
-}
+};
 
 apicall.getAccounts = function(data, success, error){
-	var newData = JSON.stringify(data)
-	var url = '/accounts?token='+data.token
-	if(data.id_site != null && data.id_site != undefined){
-		url += "&id_site="+data.id_site
+	var newData = JSON.stringify(data);
+	var url = '/accounts?token='+data.token;
+	if(data.id_site !== null && data.id_site !== undefined){
+		url += "&id_site="+data.id_site;
 	}
 
 	$.ajax({
@@ -66,21 +68,21 @@ apicall.getAccounts = function(data, success, error){
 		//contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			success(handleResponse(response))      
+			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	      
-			error(errResponse)
+			error(errResponse);
 		},
 		complete : function(xhr, status) {}
 	});
 
-}
+};
 
 apicall.catalogues = function(data, success, error){
- 	var test = store.getState().enviromentState
- 	var url = baseURL+'/catalogues?token='+data.token
+ 	var test = store.getState().enviromentState;
+ 	var url = baseURL+'/catalogues?token='+data.token;
  	if(test === true){
- 		url += '&is_test=true'
+ 		url += '&is_test=true';
  	}
 	$.ajax({
 		url : url,	 
@@ -88,61 +90,62 @@ apicall.catalogues = function(data, success, error){
 		type : 'GET',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
-			success(handleResponse(response))      
+			success(handleResponse(response));      
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse)
+			error(errResponse);
 		},
 		complete : function(xhr, status) {}
 	});
 
-}
+};
 
 apicall.checkStatus = function(data, success, error){
 	$.ajax({
 		url : data,	 	 
 		type : 'GET',	 
 		success : function(response) {
-			success(handleResponse(response))      
+			success(handleResponse(response));      
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse)
+			error(errResponse);
 		},
 		complete : function(xhr, status) {}
 	});
 
-}
+};
 
 
 apicall.twofaResponse = function(data, success, error){
 
 	var dataToSend = {};
-	var twofa = {}
-	twofa[data.tokenName]= data.token
-	dataToSend.twofa = twofa;
-	dataToSend.id_site = data.id_site;
+	
+	dataToSend.twofa_key = data.tokenName;
 	dataToSend.token = data.tokenUser;
-	dataToSend.url = data.address;
-
+	dataToSend.twofa =  data.address;
+	dataToSend.twofa_value = data.token;
+	dataToSend.id_credential = data.id_credential;
+	
 	$.ajax({
 		url : baseURL+'/twofa',  //data.address+"?token="+data.tokenUser,	 
 		data : JSON.stringify(dataToSend),	 
 		type : 'POST',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
-			success(handleResponse(response))      
+			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse)
+			error(errResponse);
 		},
 		complete : function(xhr, status) {}
 	});
+	
 
-}
+};
 
 
 apicall.credentialsRegister = function(data, success, error){
-	var newData = JSON.stringify(data)
+	var newData = JSON.stringify(data);
 
 	$.ajax({
 		url : baseURL+'/credentials',	 
@@ -151,18 +154,18 @@ apicall.credentialsRegister = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			success(handleResponse(response))      
+			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse)
+			error(errResponse);
 		},
 		complete : function(xhr, status) {}
 	});
 
-}
+};
 
 apicall.credentialsDelete = function(data, success, error){
-	var newData = JSON.stringify(data)
+	var newData = JSON.stringify(data);
 
 	$.ajax({
 		url : baseURL+'/credentials',	 
@@ -171,18 +174,18 @@ apicall.credentialsDelete = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			success(handleResponse(response))      
+			success(handleResponse(response));      
 		},
 		error : function(errResponse, status) {	      
-			error(errResponse)
+			error(errResponse);
 		},
 		complete : function(xhr, status) {}
 	});
 
-}
+};
 
 apicall.credentialsRequest = function(data, success, error){
-	var newData = JSON.stringify(data)
+	var newData = JSON.stringify(data);
 
 	//success(dummyData.credentials)
 	//return
@@ -194,15 +197,15 @@ apicall.credentialsRequest = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		//dataType : 'application/json',
 		success : function(response) {
-			success(handleResponse(response))      
+			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	       
-			error(errResponse)
+			error(errResponse);
 		},
 		complete : function(xhr, status) {}
 	});
 
-}
+};
 
 
 
@@ -215,15 +218,15 @@ apicall.userDelete = function(data, success, error){
 		contentType: "application/json; charset=utf-8",
 		dataType : 'application/json',
 		success : function(response) {
-			success(handleResponse(response))      
+			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse)
+			error(errResponse);
 		},
 		complete : function(xhr, status) {}
 	});
 
-}
+};
 
 
 apicall.login = function(data, success, error){
@@ -234,15 +237,15 @@ apicall.login = function(data, success, error){
 		type : 'POST',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
-			success(handleResponse(response))      
+			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse)
+			error(errResponse);
 		},
 		complete : function(xhr, status) {}
 	});
 
-}
+};
 
 apicall.signup = function(data, success, error){
 
@@ -252,14 +255,14 @@ apicall.signup = function(data, success, error){
 		type : 'POST',	 
 		contentType: "application/json; charset=utf-8",
 		success : function(response) {
-			success(handleResponse(response))      
+			success(handleResponse(response));      
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse)
+			error(errResponse);
 		},
 		complete : function(xhr, status) {}
 	});
 
-}
+};
 
 export default apicall;
