@@ -4,9 +4,9 @@
  */
 
 import React from 'react';
-import { connect  } from 'react-redux'
-import store from '../redux/store'
-import actions from '../redux/actions'
+import { connect  } from 'react-redux';
+import store from '../redux/store';
+import actions from '../redux/actions';
 
 import AppBar from 'material-ui/AppBar';
 import Avatar from 'material-ui/Avatar';
@@ -24,9 +24,9 @@ import Toolbar from 'material-ui/Toolbar';
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
 import ToolbarSeparator from 'material-ui/Toolbar/ToolbarSeparator';
 
-import Routes from "../constants/Routes.js"
-import apicall from '../redux/apicall'
-import cookie from '../redux/cookie'
+import Routes from "../constants/Routes.js";
+import apicall from '../redux/apicall';
+import cookie from '../redux/cookie';
 
 const styles = {
   title: {
@@ -159,7 +159,12 @@ var Bar = React.createClass({
     return (
       <div>
         <AppBar
-          title={<span style={styles.title}>Lite.Payboook</span>}
+          title={
+            <span style={styles.title}>
+             
+             <img src="logo.svg" alt="Lite.Payboook" height="70" width="170"/>
+            </span>
+        }
           iconElementRight={userSection}
           iconElementLeft={
             <IconButton onClick={this.handleToggle} > 

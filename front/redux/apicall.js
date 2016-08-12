@@ -25,6 +25,7 @@ var handleResponse = function(res){
 };
 
 var handleError = function(error){
+	console.log("===APiCALL ERROR");
 	console.log(error);
 };
 

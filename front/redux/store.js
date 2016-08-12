@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware   } from 'redux'
-import validator from './validator.js'
-import middleware from './middleware.js'
-import cookie from './cookie'
+import validator from './validator.js';
+import middleware from './middleware.js';
+import cookie from './cookie';
 
 // User Reducer
 const userInitialState = {
@@ -10,51 +10,51 @@ const userInitialState = {
 };
 const stateReducer = function(state = {}, action) {
     if (state === undefined) {
-		return {}
+		return {};
 	}
 	if (action.type === 'STATE_SET') {
-	    return Object.assign({}, state, action.state)
+	    return Object.assign({}, state, action.state);
 	}
 	return state;
-}
+};
 
 const userReducer = function(state = userInitialState, action) {
     if (state === undefined || action.type === 'USER_LOGOUT' ) {
-		return Object.assign({}, state, userInitialState)
+		return Object.assign({}, state, userInitialState);
 	}
 	if (action.type === 'USER_AUTH') {
 	    return Object.assign({}, state, {username:action.username, token: action.token})
 	}
 	return state;
-}
+};
 
 // Widget Reducer
 const widgetReducer = function(state = false, action) {
     if (state === undefined ) {
-		return false
+		return false;
 	}
 	if (action.type === 'WIDGET_STATE') {
 	     state = action.state;
 	}
 	return state;
-}
+};
 
 // Enviroment Reducer
 const enviromentReducer = function(state = false, action) {
     if (state === undefined ) {
-		return false
+		return false;
 	}
 	if (action.type === 'ENVIROMENT_SET') {
 	     state = action.state;
 	}
 	return state;
-}
+};
 
 
 // Page Reducer
-const pageReducer = function(state = "Home", action) {
+const pageReducer = function(state = "Login", action) {
 	if (state === undefined) {
-		state = "Home";
+		state = "Login";
 	}
 	if (action.type === 'PAGE_LOAD') {
 	    state = action.page;

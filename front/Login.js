@@ -1,10 +1,10 @@
 
 import React from 'react';
-import { connect  } from 'react-redux'
-import store from './redux/store'
-import apicall from './redux/apicall'
-import actions from './redux/actions'
-import styles from './constants/styles.js'
+import { connect  } from 'react-redux';
+import store from './redux/store';
+import apicall from './redux/apicall';
+import actions from './redux/actions';
+import styles from './constants/styles.js';
 
 //MUI Componentes
 import RaisedButton from 'material-ui/RaisedButton';
@@ -45,7 +45,7 @@ var Login = React.createClass({
 				token: token
 			})
 
-			actions.pageLoad("Home")
+			actions.pageLoad("Accounts")
 		},
 		function(error){
 			console.log(error)

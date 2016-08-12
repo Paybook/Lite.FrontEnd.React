@@ -1,10 +1,10 @@
 
 import React from 'react';
-import { connect  } from 'react-redux'
-import store from './redux/store'
-import apicall from './redux/apicall'
-import actions from './redux/actions'
-import styles from './constants/styles.js'
+import { connect  } from 'react-redux';
+import store from './redux/store';
+import apicall from './redux/apicall';
+import actions from './redux/actions';
+import styles from './constants/styles.js';
 
 //MUI Componentes
 import AutoComplete from 'material-ui/AutoComplete';
@@ -34,8 +34,10 @@ var Transactions = React.createClass({
 		var list = []
 
 		t.props.transactionsFiltered.map(function(tran,i){
+			var date = new Date(tran.dt_transaction).toString().slice(0,24);
 			list.push(
 				<TableRow key={i}>
+					<TableRowColumn>{date}</TableRowColumn>
 					<TableRowColumn>{tran.description}</TableRowColumn>
 					<TableRowColumn>{tran.accountName}</TableRowColumn>
 					<TableRowColumn className="text-right">{"$ "+(tran.amount.toFixed(2))}</TableRowColumn>
@@ -73,7 +75,7 @@ var Transactions = React.createClass({
 			<div className="col-md-12">
 			<h2> Transactions	</h2>
 				
-				<Paper style={{"padding":"26px"}} className="col-md-12">
+				<Paper style={{"padding":"18px","marginBottom":"10px"}} className="col-md-12">
 
 					<div className="col-md-8">
 						<TextField
@@ -110,6 +112,7 @@ var Transactions = React.createClass({
 				  <Table selectable={false} displayRowCheckbox={false}>
 					<TableHeader adjustForCheckbox={false} displaySelectAll={false}>
 					  <TableRow>
+					  	<TableHeaderColumn>Date</TableHeaderColumn>
 						<TableHeaderColumn>Description</TableHeaderColumn>
 						<TableHeaderColumn>Account</TableHeaderColumn>
 						<TableHeaderColumn>Amount</TableHeaderColumn>

@@ -6,17 +6,17 @@
 //Pluings
 import React from 'react';
 import { Provider } from 'react-redux';
-import { connect  } from 'react-redux'
-import store from '../redux/store'
+import { connect  } from 'react-redux';
+import store from '../redux/store';
 
 
 import PageWrapper from './PageWrapper.js';
-import Routes from "../constants/Routes.js"
+import Routes from "../constants/Routes.js";
 
 let Pages = {};
 Routes.forEach(function(route){
   Pages[route.component] = require("../"+route.component+".js");
-})
+});
 
 
 import {cyan500,cyan700, lightBlack, pinkA200, 
