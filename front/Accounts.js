@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { connect  } from 'react-redux';
 import store from './redux/store';
@@ -99,18 +97,41 @@ var DynamicFields =  React.createClass({
 });
 
 
+
 var Widget =  React.createClass({
 	componentDidMount: function(){
-		//pbWidget.setDev();
-       pbWidget.setToken(this.props.user.token);
-       pbWidget.chooseBank();
+		var test = this.props.environmentState
+		
+		console.log(test)
+		!function(w,d,s,id,r){ 
+
+		    w[r]={};  
+		    w[r]=w[r]||function(){w[r].q=w[r].q||[].push(arguments)}; 
+		    var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https'; 
+		    js=d.createElement(s); 
+		    js.id=id;  
+		    js.onload=function(){
+		    	if(test){
+		    		syncWidget.setTest()
+		    	}		    	
+		    };  
+		    js.src=p+"://www.paybook.com/sync/widget.js"; 
+		    fjs.parentNode.insertBefore(js,fjs); 
+
+	     	
+	    }(window,document,"script","sync-widget", 'syncWidget');
+
+
+		syncWidget.options = {token:this.props.user.token, baseDiv: 'sync_container', theme: 'ligth', setTest: true};  
+
 	},	
 	render: function() {
+		var t = this;
 		return (
 			<div>
 			<div className="col-md-2"></div>
 			<Paper className="text-center" className="col-md-8">
-				<div id="paybook-container"></div>
+				<div id="sync_container"></div>
 			</Paper>
 			<div className="col-md-2"></div>
 			</div>
@@ -592,7 +613,7 @@ var Accounts =  React.createClass({
 		var t = this;
 		var tp = this.props;
 		if(this.props.widget === true){
-			return <Widget user={tp.user}/>
+			return <Widget user={tp.user} environmentState={tp.environmentState}/>
 		}
 		else{
 			return <AccountsContainer
@@ -626,6 +647,7 @@ const mapStateToProps = function(store) {
 	transactions: store.accountsState.transactions,
 	twofa: store.accountsState.twofa,
 	widget: store.widgetState,
+	environmentState: store.enviromentState
   };
 }
 

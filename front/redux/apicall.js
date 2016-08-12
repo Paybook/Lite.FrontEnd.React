@@ -8,7 +8,6 @@ import actions from './actions.js';
 var baseURL =  server.url;
 
 var handleResponse = function(res){
-
 	if(typeof res != "object" && !Array.isArray(res)){ 
 		res = JSON.parse(res);
 	}
@@ -27,6 +26,11 @@ var handleResponse = function(res){
 var handleError = function(error){
 	console.log("===APiCALL ERROR");
 	console.log(error);
+	actions.error(error);
+	if(error.status === 401){
+		actions.logout();
+	}
+	return error;
 };
 
 apicall.getTransactions = function(data, success, error){
@@ -48,7 +52,7 @@ apicall.getTransactions = function(data, success, error){
 			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	      
-			error(errResponse);
+			error(handleError(errResponse));
 		},
 		complete : function(xhr, status) {}
 	});
@@ -72,7 +76,7 @@ apicall.getAccounts = function(data, success, error){
 			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	      
-			error(errResponse);
+			error(handleError(errResponse));
 		},
 		complete : function(xhr, status) {}
 	});
@@ -94,7 +98,7 @@ apicall.catalogues = function(data, success, error){
 			success(handleResponse(response));      
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse);
+			error(handleError(errResponse));
 		},
 		complete : function(xhr, status) {}
 	});
@@ -109,7 +113,7 @@ apicall.checkStatus = function(data, success, error){
 			success(handleResponse(response));      
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse);
+			error(handleError(errResponse));
 		},
 		complete : function(xhr, status) {}
 	});
@@ -136,7 +140,7 @@ apicall.twofaResponse = function(data, success, error){
 			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse);
+			error(handleError(errResponse));
 		},
 		complete : function(xhr, status) {}
 	});
@@ -158,7 +162,7 @@ apicall.credentialsRegister = function(data, success, error){
 			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse);
+			error(handleError(errResponse));
 		},
 		complete : function(xhr, status) {}
 	});
@@ -178,7 +182,7 @@ apicall.credentialsDelete = function(data, success, error){
 			success(handleResponse(response));      
 		},
 		error : function(errResponse, status) {	      
-			error(errResponse);
+			error(handleError(errResponse));
 		},
 		complete : function(xhr, status) {}
 	});
@@ -201,7 +205,7 @@ apicall.credentialsRequest = function(data, success, error){
 			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	       
-			error(errResponse);
+			error(handleError(errResponse));
 		},
 		complete : function(xhr, status) {}
 	});
@@ -222,7 +226,7 @@ apicall.userDelete = function(data, success, error){
 			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse);
+			error(handleError(errResponse));
 		},
 		complete : function(xhr, status) {}
 	});
@@ -241,7 +245,7 @@ apicall.login = function(data, success, error){
 			success(handleResponse(response));
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse);
+			error(handleError(errResponse));
 		},
 		complete : function(xhr, status) {}
 	});
@@ -259,7 +263,7 @@ apicall.signup = function(data, success, error){
 			success(handleResponse(response));      
 		},
 		error : function(errResponse, status) {	        
-			error(errResponse);
+			error(handleError(errResponse));
 		},
 		complete : function(xhr, status) {}
 	});
