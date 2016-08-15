@@ -11,18 +11,25 @@ actions.test = function(){
 };
 
 actions.error = function(message){
+
+
 	if(message.status == 401 && message.statusText ==  "UNAUTHORIZED"){
 		actions.error("Invalid session");
 		actions.logout();
 		return;
 	}
 	
-	/*if(typeof message != "string"){
-		message = "error";
-	}*/
+
+	var errMsg = message;
+	if(typeof errMsg !== 'string' ){ errMsg = message.statusText;}
+	if(typeof errMsg !== 'string' ){ errMsg = message.reason;}
+	if(typeof errMsg !== 'string' ){
+		errMsg = "ERROR";
+	}
+
 	store.dispatch({
 		type:"ERROR_DISPLAY",
-		message:message,
+		message:errMsg,
 	});
 };
 
