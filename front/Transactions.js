@@ -33,8 +33,10 @@ var Transactions = React.createClass({
 		var t = this;
 		var list = []
 
+
+
 		t.props.transactionsFiltered.map(function(tran,i){
-			var date = new Date(tran.dt_transaction).toString().slice(0,24);
+			var date = new Date(tran.dt_transaction*1000).toString().slice(0,24);
 			list.push(
 				<TableRow key={i}>
 					<TableRowColumn>{date}</TableRowColumn>
