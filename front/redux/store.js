@@ -29,7 +29,7 @@ const userReducer = function(state = userInitialState, action) {
 };
 
 // Widget Reducer
-const widgetReducer = function(state = false, action) {
+const widgetReducer = function(state = true, action) {
     if (state === undefined ) {
 		return false;
 	}

@@ -54,9 +54,9 @@ const muiTheme = getMuiTheme({
 
 var muiTheme = getMuiTheme({
   palette: {
-    primary1Color: lightBlue600,
-    primary2Color:lightBlue300,
-    primary3Color: lightBlue100,
+    primary1Color: "rgb(216, 57, 72)",
+    primary2Color:"rgb(228, 99, 111)",
+    primary3Color: "rgb(236, 162, 169)",
     accent1Color: blueGrey700,
     accent2Color:  blueGrey500,
     accent3Color: lightBlack,
