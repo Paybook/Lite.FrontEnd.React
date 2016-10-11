@@ -18,8 +18,8 @@ import TableRow from 'material-ui/Table/TableRow';
 import TableHeaderColumn from 'material-ui/Table/TableHeaderColumn';
 import TableRowColumn from 'material-ui/Table/TableRowColumn';
 import TableBody from 'material-ui/Table/TableBody';
-
-
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
 
 
 var Transactions = React.createClass({
@@ -43,12 +43,26 @@ var Transactions = React.createClass({
 					<TableRowColumn>{tran.description}</TableRowColumn>
 					<TableRowColumn>{tran.accountName}</TableRowColumn>
 					<TableRowColumn className="text-right">{"$ "+(tran.amount.toFixed(2))}</TableRowColumn>
+					<TableRowColumn>
+						{!tran.attachments?null:
+						<IconButton tooltip="Font Icon" 
+						onClick={t.downloadAttachment.bind(null, tran.attachments)}>
+					      <FontIcon className="mdi mdi-cloud-download"></FontIcon>
+					    </IconButton>
+					    }
+					</TableRowColumn>
 				</TableRow>
 			  )
 		})		
 		
 		return list
 
+	},
+	downloadAttachment: function(att) {
+		att = att[0];
+		var url = 'https://sync.paybook.com/v1'+att.url+'?token='+this.props.user.token;
+		window.open(url, '_blank');
+  		win.focus();
 	},
 	handleAccountSelect: function(object,value){
 		actions.setAccount(object.id_account)
@@ -118,6 +132,7 @@ var Transactions = React.createClass({
 						<TableHeaderColumn>Description</TableHeaderColumn>
 						<TableHeaderColumn>Account</TableHeaderColumn>
 						<TableHeaderColumn>Amount</TableHeaderColumn>
+						<TableHeaderColumn>Attachment</TableHeaderColumn>
 					  </TableRow>
 					</TableHeader>
 					<TableBody displayRowCheckbox={false}>
