@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 var actions = {};
 import store from './store';
 import apicall from './apicall';
@@ -77,6 +78,36 @@ actions.getTransactions = function(id_account){
 			function(response){
 				store.dispatch({
 					type:'TRANSACTIONS_ADD',
+					transactions: response.transactions,
+				});
+				actions.loaderOff();
+			}, 
+			function(err){
+				actions.loaderOff();
+				actions.error(err);
+		});
+
+};
+
+actions.getTransactionsMore = function(id_account, callback){
+		const s = store.getState();
+		id_account = s.accountsState.currentAccount;
+		
+		var data = {
+			token: s.userState.token,
+		};
+		if(s.accountsState.currentAccount !==  null){
+			data.id_account = s.accountsState.currentAccount;
+		}
+
+		actions.loaderOn();
+
+
+		apicall.getTransactions(data,
+			function(response){
+				callback();
+				store.dispatch({
+					type:'TRANSACTIONS_MORE',
 					transactions: response.transactions,
 				});
 				actions.loaderOff();

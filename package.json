@@ -1,7 +1,7 @@
 {
   "name": "lite-paybook-react",
   "version": "0.9.0",
-  "description": "Sample fron-end project  based on react for Paybook",
+  "description": "Sample frot-end project  based on react for Paybook",
   "repository": {
     "type": "git",
     "url": "https://github.com/paybook/lite.paybook.react.git"
@@ -35,7 +35,6 @@
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.5",
     "react-tap-event-plugin": "^1.0.0",
-    "redux": "^3.5.2",
-    "paybook":"*"
+    "redux": "^3.5.2"
   }
 }

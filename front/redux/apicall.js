@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 var apicall = {};
 
 import server from '../constants/server';
@@ -39,10 +40,13 @@ apicall.getTransactions = function(data, success, error){
 	if(data.id_account){
 		url += "&id_account="+data.id_account;
 	}
-
+	var storeTransactions = store.getState().accountsState;
+	url += "&limit="+storeTransactions.transactionsLimit;
+	url += "&skip="+storeTransactions.transactionsSkip;
+	console.log(url);
 	$.ajax({ 
 		url : baseURL+url, 	
-		data : JSON.stringify(data), 
+		//data : JSON.stringify(data), 
 		type : 'GET',	
 		contentType: "application/json; charset=utf-8",
 //		dataType : 'application/json', 

@@ -102,7 +102,6 @@ var Widget =  React.createClass({
 	componentDidMount: function(){
 		var test = this.props.environmentState
 		
-		console.log(test)
 		!function(w,d,s,id,r){ 
 
 		    w[r]={};  

@@ -1,4 +1,4 @@
-
+/*jshint esversion: 6 */
 import React from 'react';
 import { connect  } from 'react-redux';
 import store from './redux/store';
@@ -21,13 +21,41 @@ import TableBody from 'material-ui/Table/TableBody';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 
+function getDocHeight() {
+    var D = document;
+    return Math.max(
+        D.body.scrollHeight, D.documentElement.scrollHeight,
+        D.body.offsetHeight, D.documentElement.offsetHeight,
+        D.body.clientHeight, D.documentElement.clientHeight
+    );
+}
+var getting = false;
 
 var Transactions = React.createClass({
 	componentDidMount:function(){
 		actions.getTransactions();
 		actions.getAccounts();
+		var t =this;
+		//scroll bottom
+		
+		document.onscroll = function() {
 
+		    if(window.innerHeight+ window.scrollY +20 > getDocHeight() && getting == false)      
+        	{      	
+        		getting = true;	
+		        t.getTransactionsMore();
+		    }
+		}
 
+	},
+	componentWillUnmount: function(){
+		document.onscroll = function() {}
+
+	},
+	getTransactionsMore: function() {
+		actions.getTransactionsMore(undefined, function(){
+			getting = false;
+		});
 	},
 	transactionsList: function(){
 		var t = this;
