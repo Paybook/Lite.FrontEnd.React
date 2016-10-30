@@ -6,11 +6,12 @@ import dummyData from './dummyData.js';
 import store from './store.js';
 import actions from './actions.js';
 
-var baseURL =  server.url;
+var baseURL =  "https://private-anon-94e154171b-orauth.apiary-mock.com";
 
 var handleResponse = function(res){
 	if(typeof res != "object" && !Array.isArray(res)){ 
 		res = JSON.parse(res);
+
 	}
 
 	if(res.code == 401 && res.response === null && res.status === false){
@@ -18,6 +19,7 @@ var handleResponse = function(res){
 		actions.logout();
 	}
 	else{
+		console.log(res);
 		return res;
 	}
 	
@@ -33,6 +35,86 @@ var handleError = function(error){
 	}
 	return error;
 };
+
+
+
+
+
+
+
+
+
+//APICALLS  ORAUTH
+
+apicall.signup = function(data, success, error){
+	var type = "1";
+	if(data.type) {
+		type = "2";
+	}
+	var dataToSend = {username: data.username, password:data.password, type:type};
+	console.log(dataToSend);
+	$.ajax({
+		url : baseURL+'/v1/users',	 
+		data : JSON.stringify(dataToSend),	 
+		type : 'POST',	 
+		contentType: "application/json; charset=utf-8",
+		success : function(response) {
+			success(handleResponse(response));
+		},
+		error : function(errResponse, status) {	        
+			error(handleError(errResponse));
+		},
+		complete : function(xhr, status) {}
+	});
+};
+
+apicall.login = function(data, success, error){
+	var dataToSend = {username: data.username, password:data.password}
+	console.log(dataToSend);
+	$.ajax({
+		url : baseURL+'/v1/sessions',	 
+		data : JSON.stringify(),	 
+		type : 'POST',	 
+		contentType: "application/json; charset=utf-8",
+		success : function(response) {
+			success(handleResponse(response));
+		},
+		error : function(errResponse, status) {	        
+			error(handleError(errResponse));
+		},
+		complete : function(xhr, status) {}
+	});
+
+};
+
+apicall.logout = function(data, success, error){
+
+	$.ajax({
+		url : baseURL+'/v1/sessions',	 
+		data : JSON.stringify({token: data.token}),	 
+		type : 'DELETE',	 
+		contentType: "application/json; charset=utf-8",
+		success : function(response) {
+			success(handleResponse(response));
+		},
+		error : function(errResponse, status) {	        
+			error(handleError(errResponse));
+		},
+		complete : function(xhr, status) {}
+	});
+
+};
+
+
+
+
+
+
+
+
+/*
+
+
 
 apicall.getTransactions = function(data, success, error){
 
@@ -274,4 +356,5 @@ apicall.signup = function(data, success, error){
 
 };
 
+*/
 export default apicall;

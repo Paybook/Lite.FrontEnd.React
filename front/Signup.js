@@ -11,7 +11,7 @@ import styles from './constants/styles.js'
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-
+import Toggle from 'material-ui/Toggle';
 
 
 var Signup = React.createClass({
@@ -37,7 +37,7 @@ var Signup = React.createClass({
 		}
 
 		actions.loaderOn();
-		apicall.signup({username:s.username, password:s.password},
+		apicall.signup({username:s.username, password:s.password, type: s.type},
 		function(response){
 			console.log(response)
 			store.dispatch({
@@ -68,7 +68,14 @@ var Signup = React.createClass({
             this.submit()
          }
 	},
+	handleToggle: function(event,state){
+		store.dispatch({
+			type: 'SIGNUP_TYPE',
+			st: state
+		})
+	},
 	render: function() {
+		var t = this;
 		return (
 			<div>
 				<h2> SignUp	</h2>
@@ -100,6 +107,21 @@ var Signup = React.createClass({
 						value={this.props.passwordRepeat}	
 					/>
 
+					{
+						t.props.type?
+						<Toggle
+					      label="Admin"
+					      onToggle={t.handleToggle}
+					      defaultToggled ={true}
+					    />:
+					    <Toggle
+					      label="Admin"
+					      onToggle={t.handleToggle}
+					      defaultToggled ={false}
+					    />
+
+					}
+
 					<br></br>
 					<div style={{"marginTop":"36px"}}>
 						<RaisedButton label="SignUp" style={styles.raisedButton} onClick={this.submit} primary/>
@@ -119,6 +141,7 @@ const mapStateToProps = function(store) {
   return {
 	username: store.signupState.username,
 	password: store.signupState.password,
+	type: store.signupState.type,
 	passwordRepeat: store.signupState.passwordRepeat,
 	errors: store.signupState.errors,
   };
