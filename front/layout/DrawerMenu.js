@@ -54,6 +54,33 @@ var DrawerMenu = React.createClass({
 
 						
 					{ 
+
+						<div>
+							{
+								t.props.user.token? (
+
+								t.props.user.type == 1 ?
+								(
+								<MenuItem onClick={t.loadPage.bind(null, "RegisterPhoto")} >
+									<span className={"mdi mdi-account-box"}>&nbsp;&nbsp;&nbsp;</span>{"Registra foto"}
+								</MenuItem>
+								): (
+								<MenuItem onClick={t.loadPage.bind(null, "AuthPhoto")} >
+									<span className={"mdi mdi-account-box"}>&nbsp;&nbsp;&nbsp;</span>{"Autentica foto"}
+								</MenuItem>
+								)
+
+								):null
+							}
+
+
+							
+							<h1></h1>
+
+						</div>
+						
+						
+						/*
 						routes.map(function(route,i){
 							if(route.drawer === true){
 								if(route.type === "private" && t.props.user.username === false){
@@ -69,6 +96,7 @@ var DrawerMenu = React.createClass({
 							}
 							else{ return null}
 						})
+						*/
 					}
 
 						
