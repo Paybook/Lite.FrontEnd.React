@@ -24,7 +24,7 @@ const userReducer = function(state = userInitialState, action) {
 		return Object.assign({}, state, userInitialState);
 	}
 	if (action.type === 'USER_AUTH') {
-	    return Object.assign({}, state, {username:action.username, token: action.token,  type: action.typ})
+	    return Object.assign({}, state, {username:action.username, token: action.token})
 	}
 	return state;
 };
@@ -115,7 +115,6 @@ const initialSignupState = {
 	username:"",
 	password:"",
 	passwordRepeat:"",
-	type: false,
 	errors:{
 		username:"",
 		password:"",
@@ -133,9 +132,6 @@ const signupReducer = function(state = initialSignupState, action) {
 	}
 	else if (action.type === 'SIGNUP_PASSWORD') {
 	    return Object.assign({}, state,{"password":action.value})
-	}
-	else if (action.type === 'SIGNUP_TYPE') {
-	    return Object.assign({}, state,{"type":action.st})
 	}
 	else if (action.type === 'SIGNUP_PASSWORDREPEAT') {
 	    return Object.assign({}, state,{"passwordRepeat":action.value})
@@ -158,7 +154,6 @@ const signupReducer = function(state = initialSignupState, action) {
 const initialLoginState = {
 	username:"",
 	password:"",
-	type: false,
 	errors:{
 		username:"",
 		password:"",

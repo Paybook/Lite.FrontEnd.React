@@ -1,7 +1,6 @@
 
 
 const Routes = [
-	{title:"Main", component:"Main", type:"public"},
 	{title:"Login", component:"Login", type:"public"},
 	{title:"Signup", component:"Signup", type:"public"},
 	{title:"Accounts", component:"Accounts", drawer:true, icon:"mdi mdi-folder-plus", type:"private"},

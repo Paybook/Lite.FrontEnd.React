@@ -12,6 +12,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 
 
+
 var Login = React.createClass({
 	getInitialState(){
 		return {error:""}
@@ -32,9 +33,8 @@ var Login = React.createClass({
 		apicall.login({username:s.username, password:s.password},
 		function(response){
 			console.log(response)
-			var token = response.response.token
-			var type = response.response.type
-			console.log(token+" "+type)
+			var token = response.token
+			
 			actions.loaderOff();
 			store.dispatch({
 				type:"LOGIN_RESET"
@@ -42,8 +42,7 @@ var Login = React.createClass({
 			store.dispatch({
 				type:"USER_AUTH",
 				username: s.username,
-				token: token,
-				typ: type
+				token: token
 			})
 
 			actions.pageLoad("Accounts")
