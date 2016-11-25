@@ -75,7 +75,7 @@ var Signup = React.createClass({
 				<div className="col-md-3"></div>
 				<Paper zDepth={1} style={styles.paper} className="col-md-6 text-center" onKeyDown={this.handleKey}>
 					<TextField
-							floatingLabelText="Username"	
+							floatingLabelText="Email"	
 							style={styles.textField}
 							onChange={this.handleChange.bind(null,"SIGNUP_USERNAME")}	
 							errorText={this.props.errors.username}	

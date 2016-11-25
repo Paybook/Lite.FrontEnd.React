@@ -128,18 +128,18 @@ const signupReducer = function(state = initialSignupState, action) {
 		return Object.assign({}, state, initialSignupState)
 	}
 	else if (action.type === 'SIGNUP_USERNAME') {
-	    return Object.assign({}, state,{"username":action.value})
+	    return Object.assign({}, state,{"username":action.value});
 	}
 	else if (action.type === 'SIGNUP_PASSWORD') {
-	    return Object.assign({}, state,{"password":action.value})
+	    return Object.assign({}, state,{"password":action.value});
 	}
 	else if (action.type === 'SIGNUP_PASSWORDREPEAT') {
-	    return Object.assign({}, state,{"passwordRepeat":action.value})
+	    return Object.assign({}, state,{"passwordRepeat":action.value});
 	}
 	//FIELDS VALIDATION
 	else if (action.type === 'SIGNUP_SUBMIT') {
 		let errors = {};
-	    errors.username = validator('username',state.username, true);
+	    errors.username = validator('email',state.username, true);
 	    errors.password = validator('password',state.password, true);
 	    errors.passwordRepeat = validator('passwordRepeat',{val1:state.passwordRepeat, val2:state.password}, true);	   
 	    let valid = validator('validate', errors) ;
@@ -164,21 +164,21 @@ const initialLoginState = {
 const loginReducer = function(state = initialLoginState, action) {
 
 	if (state === undefined || action.type === 'LOGIN_RESET') {
-		return Object.assign({}, state, initialLoginState)
+		return Object.assign({}, state, initialLoginState);
 	}
 	else if (action.type === 'LOGIN_USERNAME') {
-	    return Object.assign({}, state,{"username":action.value})
+	    return Object.assign({}, state,{"username":action.value});
 	}
 	else if (action.type === 'LOGIN_PASSWORD') {
-	    return Object.assign({}, state,{"password":action.value})
+	    return Object.assign({}, state,{"password":action.value});
 	}
 	//FIELDS VALIDATION
 	else if (action.type === 'LOGIN_SUBMIT') {
-		let errors = {} 
-	    errors.username = validator('username',state.username, true);
+		let errors = {};
+	    errors.username = validator('email',state.username, true);
 	    errors.password = validator('password',state.password, true);	   
-	    let valid = validator('validate', errors) 
-	    return Object.assign({}, state,{errors:errors, valid: valid})
+	    let valid = validator('validate', errors);
+	    return Object.assign({}, state,{errors:errors, valid: valid});
 	}
 
 	return state;
