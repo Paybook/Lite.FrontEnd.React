@@ -45,25 +45,6 @@ var handleError = function(error){
 
 
 //APICALLS  ORAUTH
-apicall.addDocument = function(data, success, error){
-	var type = "1";
-	console.log(data);
-	var dataToSend = data;
-	console.log(dataToSend);
-	$.ajax({
-		url : baseURL+'/v1/documents/user',	 
-		data : JSON.stringify(dataToSend),	 
-		type : 'POST',	 
-		contentType: "application/json; charset=utf-8",
-		success : function(response) {
-			success(handleResponse(response));
-		},
-		error : function(errResponse, status) {	        
-			error(handleError(errResponse));
-		},
-		complete : function(xhr, status) {}
-	});
-};
 
 apicall.signup = function(data, success, error){
 	var type = "1";
